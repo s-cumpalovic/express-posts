@@ -1,5 +1,4 @@
 const express = require("express");
-const app = express();
 const router = express.Router();
 const Post = require("../models/Post");
 const handleError = require("../handleError");
@@ -8,7 +7,7 @@ const ageMiddleware = require("../middlewares/ageMiddleware");
 router.get("/", async (req, res) => {
   try {
     const posts = await Post.find();
-    res.send(posts);
+    res.render("posts", { posts });
   } catch (err) {
     handleError(res, err);
   }

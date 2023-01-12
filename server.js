@@ -1,8 +1,11 @@
 const express = require("express");
-const app = express();
 const bodyParser = require("body-parser");
-const cors = require("cors");
+const path = require("path");
 const loggingMiddleware = require("./middlewares/loggingMiddleware");
+
+const app = express();
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
 
 // Middlewares
 app.use(loggingMiddleware, bodyParser.json());
