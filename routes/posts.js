@@ -1,8 +1,9 @@
 const express = require("express");
+const app = express();
 const router = express.Router();
 const Post = require("../models/Post");
-const handleError = require('../handleError')
-
+const handleError = require("../handleError");
+const ageMiddleware = require("../middlewares/ageMiddleware");
 
 router.get("/", async (req, res) => {
   try {
@@ -13,7 +14,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", ageMiddleware, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     if (!post) return res.status(404).json({ message: "Post not found!" });
